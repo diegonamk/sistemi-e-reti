@@ -1,1 +1,7 @@
-# Ripasso sistemi e reti per compito giovedí 18 e sabato 20
+<p align="center">
+# Ripasso sistemi 
+</p>
+
+
+## compito giovedí 18 e sabato 20
+
