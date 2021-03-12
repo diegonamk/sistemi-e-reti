@@ -1,3 +1,4 @@
+# **LEGGERE IL FILE CON NIGHTMODE OFF**
 
 # Ripasso sistemi compito giovedí 18 e sabato 20
 #### non si accerta la correttezza dei passaggi effettuati
