@@ -41,5 +41,10 @@ Per questo esempio useremo l'indirizzo
 
     ### *__FabbSEG__* = 44
     ### *__FabbLAB__* = 44
+    <p>&nbsp;</p>
+1. ### Calcolo *h* della subnet
+    ![2^{h}-2>host(44)](https://latex.codecogs.com/svg.latex?%5Cbg_white%202%5E%7Bh%7D-2%3Ehost%2844%29)
+
+
 
 
