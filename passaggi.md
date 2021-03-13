@@ -24,7 +24,7 @@ Indirizzi Iniziali | Indirizzi finali | Host disponibili | Classi | CIDR MAX
 192.168.0.0 | 192.168.255.255 | 65.536 | 256 classi C contigue  | /16
 
 Per questo esempio useremo l'indirizzo 
-## **10.20.30.10**
+## **10.20.255.0**
 <br>
 
 ## Determinazione del CIDR(*/n*)
@@ -41,16 +41,100 @@ Per questo esempio useremo l'indirizzo
         **Fabb** = 84
 
     ### *__FabbSEG__* = 44
-    ### *__FabbLAB__* = 44
+    ### *__FabbLAB__* = 84
     <p>&nbsp;</p>
 1. ### Calcolo *h* della subnet
     1. ### Subnet **SEG**
+        <p>&nbsp;</p>
+        
+        ![](https://latex.codecogs.com/svg.latex?%5Cbg_white%202%5E%7Bh%7D-2%3Ehost%2844%29)
 
-    ![](https://latex.codecogs.com/svg.latex?%5Cbg_white%202%5E%7Bh%7D-2%3Ehost%2844%29)
+        ![](http://latex.codecogs.com/svg.latex?2^{h}>&space;host(44)&space;&plus;2)
 
-    ![](http://latex.codecogs.com/svg.latex?2^{h}>&space;host(44)&space;&plus;2)
+        ![](http://latex.codecogs.com/svg.latex?%5Cbg_white%202%5E%7Bh%7D%20%3E%2046%20%5CRightarrow%20%2064%20%5Cxrightarrow%5B%5D%7Bh%7D%206)
+        <p>&nbsp;</p>
+    1. ### Subnet **LAB**
+        <p>&nbsp;</p>
 
-    ![](http://latex.codecogs.com/svg.latex?%5Cbg_white%202%5E%7Bh%7D%3E%20host(44)%20&plus;2)
+        ![](http://latex.codecogs.com/svg.latex?%5Cbg_white%202%5E%7Bh%7D%20-2%20%3E%20host(84))
+
+        ![](http://latex.codecogs.com/svg.latex?%5Cbg_white%202%5E%7Bh%7D%20%3E%20host(84)%20&plus;2)
+
+        ![](http://latex.codecogs.com/svg.latex?\bg_white&space;2^{h}&space;>&space;86&space;\Rightarrow&space;128&space;\xrightarrow[]{h}&space;7)
+
+        <p>&nbsp;</p>
+    ### Subnet **SEG** = 6 --> 32-6 = /26
+    ### Subnet **LAB** = 7 --> 32-7 = /25
+    <p>&nbsp;</p>    
+1.  ### Calcolo spazio allocato totale(*Sall*)
+
+    ![](http://latex.codecogs.com/svg.latex?%5Cbg_white%20S_all%20=%20%202%5E%7B7%7D%20&plus;%202%5E%7B6%7D%20=%20192)
+
+    <p>&nbsp;</p>
+
+2. ### Calcolo *h* Sall 
+    
+    ![](http://latex.codecogs.com/svg.latex?%5Cbg_white%202%5E%7Bh%7D%20-2%20%3E%20192)
+
+    ![](http://latex.codecogs.com/svg.latex?%5Cbg_white%202%5E%7Bh%7D%20%3E%20194)
+
+    ![](http://latex.codecogs.com/svg.latex?%5Cbg_white%202%5E%7Bh%7D%20%3E%20194%20%5CRightarrow%20256%20%5Cxrightarrow%5B%5D%7Bh%7D%208)
+
+    ### Supernet h = 8 --> 32-8 = /24
+
+    <p>&nbsp;</p>
+
+
+## Calcolo indirizzi
+<p>&nbsp;</p>
+
+| 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | CIDR | RETE |
+|:--:|----|----|----|----|----|----|----|------| ----|
+|  *__0__* |  *__0__* |  0 |  0 |  0 |  0 |  0 |  0 |  /25 |  LAB |
+|  0 |  *__0__* |  *__0__* |  0 |  0 |  0 |  0 |  0 |  /26 |  SEG |
+
+<p>&nbsp;</p>
+
+| 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | CIDR | RETE |
+|:--:|----|----|----|----|----|----|----|------| ----|
+|  *__0__* |  *__0__* |  0 |  0 |  0 |  0 |  0 |  0 |  /25 |  LAB |
+|  0 |  *__~~0~~__* |  *__0__* |  0 |  0 |  0 |  0 |  0 |  /26 |  SEG |
+
+<p>&nbsp;</p>
+
+| 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | CIDR | RETE |
+|:--:|----|----|----|----|----|----|----|------| ----|
+|  *__0__* |  *__0__* |  0 |  0 |  0 |  0 |  0 |  0 |  /25 |  LAB |
+|  0 |  *__1__* |  *__0__* |  0 |  0 |  0 |  0 |  0 |  /26 |  SEG |
+<br>
+##### *da 25(compreso) in poi siamo al quarto byte dell'IP*
+
+<p>&nbsp;</p>
+
+| RETI | CIDR |    THIS NET   |              HOST              |    GATEWAY    | BROADCAST     |
+|:----:|:----:|:-------------:|:------------------------------:|:-------------:|---------------|
+|  LAB |  /25 |  10.20.255.0  |   10.20.255.1 - 10.20.255.83   |  10.20.255.84 | 10.20.255.85  |
+|  SEG |  /26 | 10.20.255.128 | 10.20.255.129 - 10.20.255.171  | 10.20.255.172 | 10.20.255.173 |
+
+<p>&nbsp;</p>
+
+### Per calcolare gli host il primo indirizzo parte da THIS NET + 1 e l'ultimo host é il fabbisogno -1
+### Il Gateway é l'ultimo host +1
+### Il Broadcast é Gateway +1
+
+<p>&nbsp;</p>
+
+
+
+
+
+
+
+
+        
+
+
+
 
     
 
